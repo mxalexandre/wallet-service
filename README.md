@@ -9,6 +9,7 @@ This project implements a **digital wallet service** capable of handling user wa
 
 1. **Clone the repository**:
    ```bash
+   git clone git@github.com:mxalexandre/wallet-service.git
    cd wallet-service
    ```
 
