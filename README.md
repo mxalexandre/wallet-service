@@ -51,15 +51,15 @@ This project implements a **digital wallet service** capable of handling user wa
 
 
 5. **Database - H2 Console**:
-   - API: [http://localhost:9090/h2-console/](http://localhost:9090)
+   - API: [http://localhost:9090/h2-console/](http://localhost:9090/h2-console/)
    - JDBC URL: jdbc:h2:mem:walletdb
    - Username: sa
 
 
 6. **Metrics**:
-    - Metrics: [http://localhost:9090/actuator/metrics](http://localhost:9090)
-    - Messages Consumed Success: [http://localhost:9090/actuator/metrics/transaction.messages.consumed.success](http://localhost:9090)
-    - Messages Consumed Failure: [http://localhost:9090/actuator/metrics/transaction.messages.consumed.failure](http://localhost:9090)
+    - Metrics: [http://localhost:9090/actuator/metrics](http://localhost:9090/actuator/metrics)
+    - Messages Consumed Success: [http://localhost:9090/actuator/metrics/transaction.messages.consumed.success](http://localhost:9090/actuator/metrics/transaction.messages.consumed.success)
+    - Messages Consumed Failure: [http://localhost:9090/actuator/metrics/transaction.messages.consumed.failure](http://localhost:9090/actuator/metrics/transaction.messages.consumed.failure)
 
 ---
 
