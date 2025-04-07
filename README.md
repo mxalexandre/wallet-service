@@ -87,20 +87,20 @@ This project implements a **digital wallet service** capable of handling user wa
 - **Retry Mechanism**: Messages are retried up to 3 times before moving to the DLQ.
 - **Wallet Balance Reservation**: Withdraw and transfer transactions use a reservation mechanism to prevent overspending before actual processing.
 - **H2 in-memory database**: For fast and simple persistence during development.
-- **Scheduler**: To automatically cancel expired`PENDING`transaction.
+- **Scheduler**: To automatically cancel expired `PENDING` transactions.
 
 ---
 
 ## 🔄 Transaction Processing Flow
 
-| Step | What Happens | Result |
-|:----:|:--------------|:-------|
-| 1 | User initiates a transaction request | Creates a transaction with status `PENDING` and generates a transaction code (UUID) |
-| 2 | User confirms the transaction | Updates status to `PROCESSING` and reserves the amount in the wallet (only for `TRANSFER` and `WITHDRAW` transactions) |
-| 3 | Sends the transaction to the queue (RabbitMQ) | Message is sent for asynchronous processing |
-| 4 | Consumer processes the transaction | Applies the operation and updates balance/history |
-| 5 | Success | Marks the transaction as `COMPLETED` and saves to transaction history |
-| 6 | Error | Marks the transaction as `FAILED` and releases the reserved balance (only for `TRANSFER` and `WITHDRAW` transactions) |
+| Step | What Happens | Result                                                                                                                                                 |
+|:----:|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1 | User initiates a transaction request | Creates a transaction with status `PENDING` and generates a transaction code (UUID)                                                                    |
+| 2 | User confirms the transaction | Updates status to `PROCESSING`. Reserves the amount in the wallet (only for `TRANSFER` and `WITHDRAW` transactions)                                    |
+| 3 | Sends the transaction to the queue (RabbitMQ) | Message is sent for asynchronous processing                                                                                                            |
+| 4 | Consumer processes the transaction | Applies the operation and updates balance/history                                                                                                      |
+| 5 | Success | Marks the transaction as `COMPLETED` and saves to transaction history. Releases the reserved balance (only for `TRANSFER` and `WITHDRAW` transactions) |
+| 6 | Error | Marks the transaction as `FAILED`. Releases the reserved balance (only for `TRANSFER` and `WITHDRAW` transactions)                                     |
 
 **Note**:  
 - `TRANSFER` and `WITHDRAW` transactions use balance reservation (`reserveAmount`) during the confirmation step.  
