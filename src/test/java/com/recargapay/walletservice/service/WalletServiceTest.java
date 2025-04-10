@@ -13,7 +13,7 @@ import com.recargapay.walletservice.exception.ApiException;
 import com.recargapay.walletservice.exception.WalletAlreadyExistsException;
 import com.recargapay.walletservice.fixture.WalletFixture;
 import com.recargapay.walletservice.repository.WalletRepository;
-import com.recargapay.walletservice.repository.WalletTransactionHistoryRepository;
+import com.recargapay.walletservice.repository.TransactionHistoryRepository;
 import java.math.BigDecimal;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +23,12 @@ class WalletServiceTest {
 
   private WalletService walletService;
   private WalletRepository walletRepository;
-  private WalletTransactionHistoryRepository historyRepository;
+  private TransactionHistoryRepository historyRepository;
 
   @BeforeEach
   void setUp() {
     walletRepository = mock(WalletRepository.class);
-    historyRepository = mock(WalletTransactionHistoryRepository.class);
+    historyRepository = mock(TransactionHistoryRepository.class);
     walletService = new WalletService(walletRepository, historyRepository);
   }
 

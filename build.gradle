@@ -1,7 +1,17 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.flywaydb:flyway-database-postgresql:10.8.1'
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.10'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.flywaydb.flyway' version '10.11.0'
 	id 'jacoco'
 }
 
@@ -14,14 +24,9 @@ java {
 	}
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
 repositories {
 	mavenCentral()
+	maven { url = 'https://repo.spring.io/plugins-snapshot' }
 }
 
 dependencies {
@@ -35,15 +40,29 @@ dependencies {
 	implementation 'io.micrometer:micrometer-tracing'
 	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
 	implementation 'org.owasp.encoder:encoder:1.2.3'
+	implementation 'org.postgresql:postgresql:42.7.2'
+	implementation 'org.flywaydb:flyway-core:10.11.0'
+	implementation 'org.flywaydb:flyway-database-postgresql:10.11.0'
+
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/walletdb'
+	user = 'walletuser'
+	password = 'walletpass'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-

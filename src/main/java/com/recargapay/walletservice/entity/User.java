@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,44 +16,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "wallet")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Wallet {
+public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "owner_name", nullable = false, length = 255)
-  private String ownerName;
+  @Column(nullable = false, unique = true)
+  private String username;
 
-  @Column(name = "owner_document", nullable = false, length = 100)
-  private String ownerDocument;
+  @Column(nullable = false)
+  private String password;
 
-  @Column(nullable = false, precision = 19, scale = 2)
-  private BigDecimal balance;
+  @Column(nullable = false, unique = true)
+  private String email;
 
-  @Column(name = "reserved_amount", precision = 19, scale = 2)
-  private BigDecimal reservedAmount;
-
-  @Column(name = "created_at", nullable = false)
+  @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
 
-  @Column(name = "updated_at", nullable = false)
+  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
-  @PreUpdate
-  void onUpdate() {
+  @PrePersist
+  protected void onCreate() {
+    this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
   }
 
-  @PrePersist
-  void prePersist() {
-    this.createdAt = LocalDateTime.now();
+  @PreUpdate
+  protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
   }
 }

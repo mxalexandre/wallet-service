@@ -1,18 +1,17 @@
 package com.recargapay.walletservice.service;
 
-import com.recargapay.walletservice.entity.WalletTransactionHistory;
+import com.recargapay.walletservice.entity.TransactionHistory;
 import com.recargapay.walletservice.enums.TransactionType;
-import com.recargapay.walletservice.repository.WalletTransactionHistoryRepository;
+import com.recargapay.walletservice.repository.TransactionHistoryRepository;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class WalletTransactionHistoryService {
+public class TransactionHistoryService {
 
-  private final WalletTransactionHistoryRepository transactionHistoryRepository;
+  private final TransactionHistoryRepository transactionHistoryRepository;
 
   public void recordHistory(
       Long walletId,
@@ -22,14 +21,13 @@ public class WalletTransactionHistoryService {
       BigDecimal balanceBefore,
       BigDecimal balanceAfter
   ) {
-    WalletTransactionHistory history = WalletTransactionHistory.builder()
+    TransactionHistory history = TransactionHistory.builder()
         .walletId(walletId)
         .amount(amount)
         .type(transactionType)
         .transactionCode(transactionCode)
         .balanceBefore(balanceBefore)
         .balanceAfter(balanceAfter)
-        .createdAt(LocalDateTime.now())
         .build();
 
     transactionHistoryRepository.save(history);

@@ -8,7 +8,7 @@ import com.recargapay.walletservice.entity.Wallet;
 import com.recargapay.walletservice.exception.ApiException;
 import com.recargapay.walletservice.exception.WalletAlreadyExistsException;
 import com.recargapay.walletservice.repository.WalletRepository;
-import com.recargapay.walletservice.repository.WalletTransactionHistoryRepository;
+import com.recargapay.walletservice.repository.TransactionHistoryRepository;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class WalletService {
 
   private final WalletRepository walletRepository;
-  private final WalletTransactionHistoryRepository historyRepository;
+  private final TransactionHistoryRepository historyRepository;
 
   @Transactional
   public WalletResponse createWallet(@Valid WalletRequest request) {

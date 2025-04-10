@@ -29,7 +29,7 @@ class WalletServiceHelperTest {
   private WalletRepository walletRepository;
 
   @Mock
-  private WalletTransactionHistoryService transactionHistoryService;
+  private TransactionHistoryService transactionHistoryService;
 
   private Wallet wallet;
 

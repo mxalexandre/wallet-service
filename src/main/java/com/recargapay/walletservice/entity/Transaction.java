@@ -22,46 +22,50 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "transaction")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, unique = true, updatable = false)
+  @Column(name = "transaction_code", nullable = false, unique = true, updatable = false)
   private UUID transactionCode;
 
-  @Column(nullable = false)
+  @Column(name = "source_wallet_id", nullable = false)
   private Long sourceWalletId;
 
-  @Column(nullable = false)
+  @Column(nullable = false, precision = 19, scale = 2)
   private BigDecimal amount;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false, length = 50)
   private TransactionType type;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false, length = 50)
   private TransactionStatus status;
 
+  @Column(name = "target_wallet_id")
   private Long targetWalletId;
 
+  @Column(name = "error_message", length = 500)
   private String errorMessage;
 
-  @Column(nullable = false)
+  @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
 
+  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
   @PreUpdate
-  void onUpdate() { this.updatedAt = LocalDateTime.now(); }
+  void onUpdate() {
+    this.updatedAt = LocalDateTime.now();
+  }
 
   @PrePersist
   void prePersist() {
@@ -80,4 +84,3 @@ public class Transaction {
         .build();
   }
 }
-

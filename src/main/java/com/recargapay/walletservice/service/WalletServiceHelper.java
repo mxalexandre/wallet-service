@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class WalletServiceHelper {
 
   private final WalletRepository walletRepository;
-  private final WalletTransactionHistoryService transactionHistoryService;
+  private final TransactionHistoryService transactionHistoryService;
 
   public void updateWalletBalance(Long walletId, BigDecimal amount, TransactionType type, String transactionCode) {
     Wallet wallet = walletRepository.findById(walletId)
